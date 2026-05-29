@@ -138,7 +138,7 @@ pipeline {
                 }
                 // Clean up stale builder caches & refresh the stack
                 sh 'docker-compose down || true'
-                sh 'docker-compose up -d'
+                sh 'docker-compose up -d --build'
                 echo '🛰️ System online! Rolling updates verified.'
             }
         }
