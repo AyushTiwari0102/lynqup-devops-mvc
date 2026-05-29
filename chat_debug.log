@@ -1,0 +1,13 @@
+[2026-05-29T07:54:24.859Z] Received request to /api/chat
+[2026-05-29T07:54:24.935Z] Message: GPS Workflow, History length: 1
+[2026-05-29T07:54:24.980Z] API Key length: 0
+[2026-05-29T07:54:25.045Z] Formatted history: [{"role":"model","parts":[{"text":"Protocol initialized. I am LynqSwift. How can I assist your Indian event execution today? ⚡"}]}]
+[2026-05-29T07:54:25.106Z] Created Chat session successfully
+[2026-05-29T07:54:25.187Z] Flushed response headers
+[2026-05-29T07:54:25.316Z] Calling sendMessageStream...
+[2026-05-29T07:54:30.475Z] CRITICAL API Error: {"error":{"message":"{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.\",\n    \"status\": \"PERMISSION_DENIED\"\n  }\n}\n","code":403,"status":"Forbidden"}}
+Stack: ApiError: {"error":{"message":"{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.\",\n    \"status\": \"PERMISSION_DENIED\"\n  }\n}\n","code":403,"status":"Forbidden"}}
+    at throwErrorIfNotOK (/app/node_modules/@google/genai/dist/node/index.cjs:13509:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /app/node_modules/@google/genai/dist/node/index.cjs:13227:13
+    at async Models.generateContentStream (/app/node_modules/@google/genai/dist/node/index.cjs:14710:24)

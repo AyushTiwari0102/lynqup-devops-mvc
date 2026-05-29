@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # LYNQUP Frontend (Node.js with Express & React/Vite)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lynqup_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - LARAVEL_API_URL=http://laravel_backend:80
+    networks:
+      - lynqup_network
+    depends_on:
+      - laravel_backend
+
+  # LYNQUP Backend (PHP Laravel API)
+  laravel_backend:
+    build:
+      context: ./laravel-backend
+      dockerfile: Dockerfile
+    container_name: lynqup_laravel_api
+    restart: always
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_KEY=${LARAVEL_APP_KEY:-SomeRandomStringWith32Characters!}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres_db
+      - DB_PORT=5432
+      - DB_DATABASE=lynqup_db
+      - DB_USERNAME=lynqup_user
+      - DB_PASSWORD=lynqup_secure_pass
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - laravel_storage:/var/www/html/storage
+    networks:
+      - lynqup_network
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  # Durable Database Cluster
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: lynqup_postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=lynqup_db
+      - POSTGRES_USER=lynqup_user
+      - POSTGRES_PASSWORD=lynqup_secure_pass
+    volumes:
+      - postgres_data:/var/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - lynqup_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lynqup_user -d lynqup_db"]
+      interval: 8s
+      timeout: 5s
+      retries: 5
+
+networks:
+  lynqup_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  laravel_storage:
+    driver: local

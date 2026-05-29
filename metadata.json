@@ -1,0 +1,10 @@
+{
+  "name": "LYNQUP | Elite Execution Platform",
+  "description": "A high-performance platform for event collaborations, featuring 3D interactive environments, milestone tracking, and a vetted talent shelf.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

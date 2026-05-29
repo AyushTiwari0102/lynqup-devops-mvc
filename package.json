@@ -1,0 +1,30 @@
+{
+  "name": "lynqup-execution-platform",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@google/genai": "^1.34.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
+    "@supabase/supabase-js": "^2.89.0",
+    "express": "^5.2.1",
+    "framer-motion": "^12.23.26",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@vitejs/plugin-react": "^4.0.0",
+    "esbuild": "^0.28.0",
+    "tsx": "^4.22.3",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs"
+  }
+}
