@@ -99,9 +99,6 @@ pipeline {
 
         // Stage 6: Push artifacts to Secure Registry
         stage('Docker Registry Push') {
-            when {
-                branch 'main'
-            }
             steps {
                 echo '🚀 Login to Docker Repository and push compiled images...'
                 script {
@@ -128,9 +125,6 @@ pipeline {
 
         // Stage 7: Automation deployment to production (GCP/AWS/VPS VM)
         stage('Cluster Rollout') {
-            when {
-                branch 'main'
-            }
             steps {
                 echo '🛸 Orchestrating deploy on host cluster using Docker Compose...'
                 script {
